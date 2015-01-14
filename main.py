@@ -27,12 +27,6 @@ commonWords = []
 
 GUI = hunt.GUI()
 
-def main():
-    global GUI
-
-    loadCommonWords()
-
-    GUI.launchGUI(dual_func)
 
 def compare(subject1, subject2):
 
@@ -218,8 +212,12 @@ def publishResults():
 def crunchNumbs():
     x=1
     totFreq = abs(compDict['freq2'] + compDict['freq1'])
-    freqWeight = abs(compDict['freq2'] - compDict['freq1']) / totFreq
-    freqWeight = 10 - freqWeight*10
+
+    if totFreq is 0:
+        freqWeight = 0
+    else:
+        freqWeight = abs(compDict['freq2'] - compDict['freq1']) / totFreq
+        freqWeight = 10 - freqWeight*10
 
     commWord = (compDict['number of common words'] / compDict['number of words']) * 5
     simIndex = 0
@@ -283,4 +281,8 @@ def dual_func(str1, str2):
     compare(str1, str2)
     publishResults()
 
-main()
+
+if __name__ == '__main__':
+
+    loadCommonWords()
+    GUI.launchGUI(dual_func)
